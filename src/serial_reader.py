@@ -4,14 +4,15 @@ import time
 serial_port = 'COM4'
 baud_rate = 9600
 
-ser = serial.Serial(serial_port, baud_rate)
+serial_connection = serial.Serial(serial_port, baud_rate)
 time.sleep(2)
 
 def read_temperature():
     try:
-        line = ser.readline().decode().strip()
+        line = serial_connection.readline().decode().strip()
         return float(line)
 
+    # TODO: change to catch specific exceptions
     except Exception as e:
         print(f"Error reading from serial: {e}")
         return None
