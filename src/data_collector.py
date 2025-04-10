@@ -4,7 +4,7 @@ from src.serial_reader import read_temperature
 from src.database import setup_database, insert_data
 
 
-def collect_temperature_data(serial_port, baud_rate, db_path):
+def collect_temperature_data(serial_port: str, baud_rate: int, db_path: str) -> None:
     """
     Continuously reads temperature data and stores it into the database.
 

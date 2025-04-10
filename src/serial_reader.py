@@ -4,7 +4,7 @@ import serial
 import time
 
 
-def read_temperature(serial_port, baud_rate):
+def read_temperature(serial_port: str, baud_rate: int) -> float | None:
     """
     Reads a temperature value from the specified serial port.
 
