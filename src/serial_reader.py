@@ -1,30 +1,27 @@
+"""Serial reader module to read temperature data from serial port."""
+
 import serial
 import time
 
-serial_port = 'COM4'
-baud_rate = 9600
 
-serial_connection = serial.Serial(serial_port, baud_rate)
-time.sleep(2)
+def read_temperature(serial_port, baud_rate):
+    """
+    Reads a temperature value from the specified serial port.
 
-def read_temperature():
+    Args:
+        serial_port (str): The COM port to read from.
+        baud_rate (int): The baud rate for the serial connection.
+
+    Returns:
+        float or None: The temperature in Fahrenheit, or None if reading failed.
+    """
     try:
-        line = serial_connection.readline().decode().strip()
+        connection = serial.Serial(serial_port, baud_rate)
+        time.sleep(2)  # Wait for connection to stabilize
+        line = connection.readline().decode().strip()
+        connection.close()
         return float(line)
-
-    # TODO: change to catch specific exceptions
     except Exception as e:
         print(f"Error reading from serial: {e}")
         return None
     
-
-def main():
-    while True:
-        temp = read_temperature()
-        if temp is not None:
-            print(f"Temperature: {temp} deg F")
-        time.sleep(1)
-
-
-if __name__ == "__main__":
-    main()
