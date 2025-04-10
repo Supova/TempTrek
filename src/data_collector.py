@@ -1,7 +1,7 @@
 """Data collector module to read temperature and store it in database."""
 
-from src.serial_reader import read_temperature
-from src.database import setup_database, insert_data
+from serial_reader import read_temperature
+from database import insert_data
 
 
 def collect_temperature_data(serial_port: str, baud_rate: int, db_path: str) -> None:
