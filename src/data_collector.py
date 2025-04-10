@@ -1,22 +1,19 @@
+"""Data collector module to read temperature and store it in database."""
+
 from src.serial_reader import read_temperature
 from src.database import setup_database, insert_data
 
-def collect_and_store_data():
+
+def collect_temperature_data(serial_port, baud_rate, db_path):
     """
-    Reads temperature data from the sensor and stores it in the database.
-    
-    This function sets up the database, retrieves the temperature data 
-    from the sensor using the read_temperature function, and then 
-    stores the data into the database using the insert_data function.
+    Continuously reads temperature data and stores it into the database.
+
+    Args:
+        serial_port (str): The COM port to read from.
+        baud_rate (int): The baud rate for serial communication.
+        db_path (str): Path to the SQLite database file.
     """
-    setup_database()
-    temperature = read_temperature()
-    insert_data(temperature)
-
-
-def main():
-    collect_and_store_data()
-
-
-if __name__ == "__main__":
-    main()
+    while True:
+        temperature = read_temperature(serial_port, baud_rate)
+        if temperature is not None:
+            insert_data(temperature, db_path)
